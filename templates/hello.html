@@ -1,32 +1,38 @@
 <html>
 <head>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<title>Proyecto</title>
+	<title>Web Mining</title>
 </head>
 <body>
-	<div class="container">
-		{% with messages = get_flashed_messages(with_categories=true) %}
-		{% if messages %}
-		<ul>
+
+	<div class="row p-5">
+		<div class="col-md-12">
+		<h1>Mi página web</h2>
+		</div>
+		<div class="col-md-6">
+		<form action="" method="post">
+			<!-- <textarea rows="6" cols="80" placeholder="Escribe tu texto aquí"></textarea> -->
+			<div style="padding-bottom: 15px;">
+				{{form.pregunta}}
+			</div>
+			<div class="input submit">
+				<input type="submit" value="Ejecutar" class="btn btn-primary">
+			</div>
+		</form>
+			
+		</div>
+		<div class="col-md-6">
+			{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+			<ul>
+
 		    {% for message in messages %}
 		 	<li>{{message[1]}}</li>
 			{% endfor %}
 		</ul>
 		{% endif %}
 		{% endwith %}
-		<form action="" method="post">
-			<div class="input text">
-				<div class="input-group mb-6">
-  					<div class="input-group-prepend">
-    					<span class="input-group-text" id="basic-addon1">{{form.pregunta.label}}</span>
-					</div>
-				 	{{form.pregunta}}
-				 </div>
-			</div>
-			<div class="input submit">
-				<input type="submit" value="Ejecutar" class="btn btn-primary">
-			</div>
-		</form>
-	</div>
+		  </div>
+	  </div>
 </body>
 </html>

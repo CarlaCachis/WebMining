@@ -5,6 +5,7 @@ import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 import re
 import nltk
+nltk.download('stopwords')
 import string
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize

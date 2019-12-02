@@ -20,7 +20,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 # https://medium.com/@onejohi/building-a-simple-rest-api-with-python-and-flask-b404371dc699
 # set FLASK_ENV=development
 # set FLASK_APP=app.py
-#DEBUG = True
+DEBUG = True
 app = Flask(__name__)
 app.config.from_object(__name__)
 app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'

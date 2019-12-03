@@ -24,7 +24,7 @@
 				{{form.entrada}}
 			</div>
 			<div class="input submit">
-				<input type="submit" value="Ejecutar" class="btn btn-primary">
+				<input type="submit" value="Ejecutar" class="btn btn-primary" onclick="clickSubmit()">
 			</div>
 		</form>
 			
@@ -44,3 +44,9 @@
 	  </div>
 </body>
 </html>
+
+<script>
+	function clickSubmit(event) {
+		ga('send', 'event', 'click', event.target.href);
+	}
+</script>

@@ -2,6 +2,7 @@
 <head>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153732333-1"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -9,37 +10,53 @@
 
   gtag('config', 'UA-153732333-1');
 </script>
-	<title>Web Mining</title>
+	<title>¿Qué es lo que estás pensando?</title>
 </head>
 <body>
 
 	<div class="row p-5">
-		<div class="col-md-12">
-		<h1>Mi página web</h2>
-		</div>
+		
 		<div class="col-md-6">
+				<h2>¿Qué es lo que estás pensando?</h2>
 		<form action="" method="post">
 			<!-- <textarea rows="6" cols="80" placeholder="Escribe tu texto aquí"></textarea> -->
+			<p>Ingresa una breve descripción de lo que estas pensando para encontrar comentarios de personas que piensan como tú</p>
 			<div style="padding-bottom: 15px;">
 				{{form.entrada}}
 			</div>
+			<div class="row">
+			<div class="col-md-4">
 			<div class="input submit">
 				<input type="submit" value="Ejecutar" class="btn btn-primary">
 			</div>
+			</div>
+
+		</div>
 		</form>
 			
 		</div>
-		<div class="col-md-6">
-			{% with messages = get_flashed_messages(with_categories=true) %}
-			{% if messages %}
-			<ul>
+		<div class="col-md-offset-1 col-md-5">
 
-		    {% for message in messages %}
-		 	<li>{{message[1]}}</li>
-			{% endfor %}
-		</ul>
-		{% endif %}
-		{% endwith %}
+			
+				{% with messages = get_flashed_messages(with_categories=true) %}
+				{% if messages %}
+				<h4>Resultados:</h4>
+				<ol>
+					{% for message in messages %}
+					{% for item in message[1] %}
+					 <li>{{item['categoria']}}: <br> 
+					 	<a  target="_blank" href="{{item['link']}}" >{{item['tema']}}</a>
+					 </li>
+					 <br>
+					{% endfor %}
+					{% endfor %}
+				</ol>
+				{% endif %}
+				{% endwith %}
+
+
+
+
 		  </div>
 	  </div>
 </body>

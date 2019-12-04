@@ -1,20 +1,9 @@
 from flask import Flask, render_template, flash, request
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 
-import pandas as pd
-import numpy as np
-from sklearn.metrics.pairwise import cosine_similarity
-import re
-import nltk
-nltk.download('stopwords')
-import string
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-import multiprocessing 
-import gensim
-from gensim.models.doc2vec import Doc2Vec, TaggedDocument
 import os
-from sklearn.metrics.pairwise import cosine_similarity
+import xlrd 
+from difflib import SequenceMatcher
 
 
 # App config.
@@ -30,26 +19,42 @@ app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
 class ReusableForm(Form):
     entrada = TextField('Ingresar la pregunta:', validators=[validators.required()])
 
-    #@app.before_request
-    #def loadModel():
-        #print (entradaclean)
-
     @app.route("/", methods=['GET', 'POST'])
     def hello():
         form = ReusableForm(request.form)
 
-
-        print (form.errors)
         if request.method == 'POST':
             entrada=request.form['entrada']
-            print (entrada)
-        
     
         if form.validate():
-            print(form.errors)
+            loc = ("preguntas.xlsx") 
+            wb = xlrd.open_workbook(loc) 
+            preguntas = wb.sheet_by_index(0)    
+            nrows=preguntas.nrows
             
+            lista=[]
+            for row in range(0,nrows):
+                preguntaExcel=preguntas.cell_value(row, 0) 
+                ratio=SequenceMatcher(None,entrada,preguntaExcel).ratio()
+                lista.append({"indice":row,"ratio":ratio,"pregunta":preguntaExcel})
 
-            #flash(entradaclean)
+            lista=sorted(lista, key = lambda i: i['ratio'],reverse=True) 
+
+            #Buscaremos las respuestas a esta pregunta
+
+            loc2=("respuestas.xls")
+            wb=xlrd.open_workbook(loc2)
+            respuestas=wb.sheet_by_index(0)
+            nrows=respuestas.nrows
+
+            jsonList=[]
+            for row in range(0,nrows):
+
+                filaExcel=respuestas.cell_value(row,0)
+                if(respuestas.cell_value(row,0)==lista[0]['indice']):
+                    jsonList.append({"tema":respuestas.cell_value(row,1),"categoria":respuestas.cell_value(row,2),"link":respuestas.cell_value(row,4)})
+
+            flash(jsonList)
 
 
 

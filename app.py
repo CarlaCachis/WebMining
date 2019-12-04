@@ -46,78 +46,7 @@ class ReusableForm(Form):
         
     
         if form.validate():
-            df = pd.read_excel('temasDFv3.xlsx')
-
-            model = gensim.models.Word2Vec.load('doc2vec_wikipedia_es_pvdbow')
-
-                         
-            #A minúsculas
-            df["Minusculas"] = df["Tema"].str.lower()
-
-            #Retirar puntuación
-            cadpun = string.punctuation + '¿'
-            df["Sin Puntuacion"] = df["Minusculas"].str.translate(str.maketrans('', '', cadpun))
-
-            #Retirar stopwords
-            stops = stopwords.words('spanish')
-            df["Clean"] = df["Sin Puntuacion"].apply(lambda x: ' '.join([word for word in x.split() if word not in (stops)]))
-
-            #Tokenization
-            df["Tokenization"] = df["Clean"].str.split()
-
-            vectores = []
-            for tema in df["Tokenization"]:
-                vector = model.infer_vector(tema)
-                vectores.append(vector)
-
-            df["Vector"]=vectores
-
-            cadpun = string.punctuation + '¿'
-            stops = stopwords.words('spanish')
-
-
-            entrada = entrada.lower()
-            entrada = entrada.translate(str.maketrans('', '', cadpun))
-            palabras = entrada.split()
-            resultwords = [palabra for palabra in palabras if palabra.lower() not in stops]
-            entradaclean = (' '.join(resultwords)).split()
-            
-            vector = model.infer_vector(entradaclean).reshape(1,-1)
-
-            #comparación la pregunta ingresada con la BD
-            proximidades = []
-            maxprox = 0
-            cont = 0
-            similares = {}
-            similaresdict = {}
-
-            for x in df["Vector"]:
-                vectortema = np.asarray(x).reshape(1,-1)
-                res = cosine_similarity(vectortema,vector) 
-                #similares[float(res[0])] = preguntas[cont]
-                similares = {}
-
-                similares["Tema"] = df["Tema"][cont]
-                similares["Categoría"] = df["Categoría"][cont]
-                similares["Subcategoría"] = df["Subcategoría"][cont]
-                similares["Valor"] = float(res[0]) 
-                similaresdict[float(res[0])] = similares
-
-                if (res> maxprox):
-                    temaproxprox = df["Tema"][cont]
-                    categoria = df["Categoría"][cont]
-                    maxprox = res
-                    contprox = cont
-                proximidades.append(res)
-                cont = cont + 1
-
-            ordenados = sorted(similaresdict.items(), key=lambda kv: kv[0], reverse=True)
-
-            print(ordenados[0][1])
-            print(ordenados[1][1])
-            print(ordenados[2][1])
-            print(ordenados[3][1])
-            print(ordenados[4][1])
+            print(form.errors)
             
 
             #flash(entradaclean)

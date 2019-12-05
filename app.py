@@ -27,6 +27,11 @@ class ReusableForm(Form):
             entrada=request.form['entrada']
     
         if form.validate():
+
+            with open("set_preguntas.txt", "a") as myfile:
+                myfile.write(entrada+'\n')
+
+
             loc = ("preguntas.xlsx") 
             wb = xlrd.open_workbook(loc) 
             preguntas = wb.sheet_by_index(0)    

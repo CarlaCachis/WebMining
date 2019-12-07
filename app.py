@@ -1,4 +1,4 @@
-from flask import Flask, render_template, flash, request
+from flask import Flask, render_template, flash, request,jsonify
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
 
 import os
@@ -19,6 +19,10 @@ app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
 class ReusableForm(Form):
     entrada = TextField('Ingresar la pregunta:', validators=[validators.required()])
 
+    @app.route("/dashboard", methods=['GET', 'POST'])
+    def test():
+        return jsonify([])
+    
     @app.route("/", methods=['GET', 'POST'])
     def hello():
         form = ReusableForm(request.form)

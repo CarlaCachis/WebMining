@@ -1,0 +1,6 @@
+> pip install Flask
+> cd .../venv/Scripts
+> activate
+> set FLASK_ENV=development
+> set FLASK_APP=app.py
+> flask run

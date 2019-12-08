@@ -1,0 +1,174 @@
+<html>
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153732333-1"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+	<script>
+		(function(w,d,s,g,js,fs){
+		  g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
+		  js=d.createElement(s);fs=d.getElementsByTagName(s)[0];
+		  js.src='https://apis.google.com/js/platform.js';
+		  fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
+		}(window,document,'script'));
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-153732333-1');
+  </script>
+	<title>Dashboards</title>
+</head>
+<body>
+  <h1>Dashboards</h1>
+
+  <div class="col-md-12">
+
+    <div class="col-md-6">
+      <canvas id="pie"></canvas>
+    </div>
+    <div class="col-md-6">
+      <canvas id="bar"></canvas>
+    </div>
+  </div>
+
+
+  <div id="embed-api-auth-container"></div>
+  <div id="chart-container"></div>
+  <div id="view-selector-container"></div>
+</body>
+</html>
+
+<script>
+	function clickSubmit(event) {
+		ga('send', 'event', 'click', event.target.href);
+	}
+	gapi.analytics.ready(function() {
+
+/**
+ * Authorize the user immediately if the user has already granted access.
+ * If no access has been created, render an authorize button inside the
+ * element with the ID "embed-api-auth-container".
+ */
+gapi.analytics.auth.authorize({
+  container: 'embed-api-auth-container',
+  clientid: '110459703617280889290'
+});
+
+
+/**
+ * Create a new ViewSelector instance to be rendered inside of an
+ * element with the id "view-selector-container".
+ */
+var viewSelector = new gapi.analytics.ViewSelector({
+  container: 'view-selector-container'
+});
+
+// Render the view selector to the page.
+viewSelector.execute();
+
+
+/**
+ * Create a new DataChart instance with the given query parameters
+ * and Google chart options. It will be rendered inside an element
+ * with the id "chart-container".
+ */
+var dataChart = new gapi.analytics.googleCharts.DataChart({
+  query: {
+	metrics: 'ga:sessions',
+	dimensions: 'ga:date',
+	'start-date': '30daysAgo',
+	'end-date': 'yesterday'
+  },
+  chart: {
+	container: 'chart-container',
+	type: 'LINE',
+	options: {
+	  width: '100%'
+	}
+  }
+});
+
+
+/**
+ * Render the dataChart on the page whenever a new view is selected.
+ */
+viewSelector.on('change', function(ids) {
+  dataChart.set({query: {ids: ids}}).execute();
+});
+
+});
+</script>
+
+<script>
+
+  var dashboardData = {{ test |tojson}};
+  var categories = {{ categories |tojson}};
+  var pieDataGraph = {{ pieData |tojson}};
+  var barDataGraph = {{ barData |tojson}};
+  
+  
+
+  console.log({pieDataGraph,barDataGraph});
+  var ctxPie = document.getElementById('pie').getContext('2d');
+  var ctxBar = document.getElementById('bar').getContext('2d');
+  var pieGraph = new Chart(ctxPie, {
+      type: 'pie',
+      data: {
+          labels: pieDataGraph.map(function(elem){return elem.subcategoria;}),
+          datasets: [{
+              label: '# de Subcategorías por Categoría: [Nombre de Categoría]',
+              data: pieDataGraph.map(function(elem){return elem.count;}),
+              backgroundColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)'
+              ]
+          }]
+      },
+      options: {
+        legend: {
+						position: 'bottom',
+					},
+      }
+  });
+
+  var barGraph = new Chart(ctxBar, {
+      type: 'bar',
+      data: {
+          labels: barDataGraph.map(function(elem){return elem.categoria;}),
+          datasets: [{
+              label: '# de temas por Categoría',
+              data: barDataGraph.map(function(elem){return elem.count;}),
+              backgroundColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)',
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)'
+              ]
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          }
+      }
+  });
+  </script>

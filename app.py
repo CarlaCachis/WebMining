@@ -133,7 +133,7 @@ class ReusableForm(Form):
     def hello():
         dispositivo=socket.gethostname()
         form = ReusableForm(request.form)
-        
+        entrada=""
         if request.method == 'POST':
             entrada=request.form['entrada']
     
@@ -181,7 +181,7 @@ class ReusableForm(Form):
 
 
 
-        return render_template('hello.html', form=form,dispositivo=dispositivo)
+        return render_template('hello.html', form=form,dispositivo=dispositivo,entrada=entrada)
 
 if __name__ == '__main__':
     app.run(host=os.getenv('IP', '0.0.0.0'), 

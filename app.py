@@ -9,6 +9,7 @@ import socket
 from nltk.corpus import stopwords
 from itertools import groupby
 
+
 # App config.
 # https://medium.com/@onejohi/building-a-simple-rest-api-with-python-and-flask-b404371dc699
 # set FLASK_ENV=development

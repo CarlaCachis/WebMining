@@ -126,12 +126,17 @@
 								
 								
 								<div class="col-md-12 col-sm-12 ">
-										<input type="text" name="entrada" required="required" class="form-control" placeholder="Ingresa una breve descripción de lo que estas pensando" autocomplete="off" value="{{entrada}}">
+										<input type="text" name="entrada" required="required" class="form-control" placeholder="Ingresa una breve descripción de lo que estas pensando" autocomplete="off" value="{{entrada}}" id="inputEntrada">
 									  </div>
 								<div class="row" style="padding-top: 25px;">
-									<div class="col-md-12">
+									<div class="col-md-6 col-sm-12">
 										<div class="input submit">
 											<input type="submit" value="Buscar comentarios" class="btn btn-primary" onclick="clickSubmit()">
+										</div>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+										<div class="input submit">
+											<input type="button" value="Limpiar" class="btn btn-info" id="clearInput" onclick="document.getElementById('inputEntrada').value = '';">
 										</div>
 									</div>
 									
@@ -240,6 +245,9 @@
 <script>
 	function clickSubmit(event) {
 		ga('send', 'event', 'click', event.target.href);
+	}
+  function clear(event) {
+		document.getElementById('clearInput').value = '';
 	}
 	gapi.analytics.ready(function() {
 

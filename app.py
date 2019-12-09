@@ -1,11 +1,13 @@
 from flask import Flask, render_template, flash, request,jsonify
 from wtforms import Form, TextField, TextAreaField, validators, StringField, SubmitField
-
+from datetime import datetime
 import os
 import xlrd 
 from difflib import SequenceMatcher
 from collections import Counter
-
+import socket
+from nltk.corpus import stopwords
+from itertools import groupby
 
 # App config.
 # https://medium.com/@onejohi/building-a-simple-rest-api-with-python-and-flask-b404371dc699
@@ -23,7 +25,11 @@ class ReusableForm(Form):
     @app.route("/dashboard", methods=['GET', 'POST'])
     def dashboard():
 
-        categoryFilter='Nuestra vida'
+        dispositivo=socket.gethostname()
+        
+        categoryFilter=request.form.get('categorySelected')
+        if categoryFilter==None:
+            categoryFilter='Aficiones'
 
         loc = ("temasFinal.xlsx") 
         wb = xlrd.open_workbook(loc) 
@@ -43,6 +49,7 @@ class ReusableForm(Form):
                 "link":temas.cell_value(row, 3),
                 "pagina":temas.cell_value(row, 4)})
         
+        categories.sort()
 
         subByCategory=[]
         themesByCategory=[]        
@@ -63,10 +70,46 @@ class ReusableForm(Form):
         else:
             for elem in subByCategory:
                 if elem['categoria']==categoryFilter:
-                    subByCategoryFiltered.append(elem)           
+                    subByCategoryFiltered.append(elem)       
+
+            
+        themesByCategory=sorted(themesByCategory, key = lambda i: i['count'])
+
+        fileHandle = open('set_preguntas.txt',"r" )
+        lineList = fileHandle.readlines()
+        fileHandle.close()
+        
+        wordsList=[]
+        for elem in lineList:
+            splitString=elem.split(";")
+            for word in splitString[0].split():
+                if word not in stopwords.words('spanish'):
+                    wordsList.append(word)
+        
+        counterWordsList = Counter((elem) for elem in wordsList)
+        words = [({'x' : x, 'value': k}) \
+            for (x), k in counterWordsList.items()]
+        
+        words=sorted(words, key = lambda i: i['value'],reverse=True)
+        
+        if len(words)>10:
+            words=words[:10]
         
 
-        return render_template('dashboards.html',test=dashboardData[:5],categories=categories,pieData=subByCategoryFiltered,barData=themesByCategory)
+        if len(lineList)>10:
+            userQuestions=lineList[len(lineList)-10:]
+        else:
+            userQuestions=lineList
+
+        userQuestions.reverse()
+
+        lastQuestions=[]
+        for elem in userQuestions:
+            splitString=elem.split(";")
+            lastQuestions.append({"tema":splitString[0],"fecha":splitString[1],"usuario":splitString[2]})
+
+
+        return render_template('dashboards.html',test=dashboardData[:5],categories=categories,pieData=subByCategoryFiltered,barData=themesByCategory,lastQuestions=lastQuestions,categoryFilter=categoryFilter,dispositivo=dispositivo,words=words)
 
     @app.route("/get-data", methods=['GET', 'POST'])
     def dataDashboard():
@@ -88,15 +131,23 @@ class ReusableForm(Form):
     
     @app.route("/", methods=['GET', 'POST'])
     def hello():
+        dispositivo=socket.gethostname()
         form = ReusableForm(request.form)
-
+        
         if request.method == 'POST':
             entrada=request.form['entrada']
     
         if form.validate():
 
+            now = datetime.now() # current date and time
+            year = now.strftime("%Y")
+            month = now.strftime("%m")
+            day = now.strftime("%d")
+            time = now.strftime("%H:%M:%S")
+            date_time = now.strftime("%m/%d/%Y - %H:%M:%S")
+            usuario=dispositivo
             with open("set_preguntas.txt", "a") as myfile:
-                myfile.write(entrada+'\n')
+                myfile.write(entrada+';'+date_time+';'+usuario+'\n')
 
 
             loc = ("preguntas.xlsx") 
@@ -124,13 +175,13 @@ class ReusableForm(Form):
 
                 filaExcel=respuestas.cell_value(row,0)
                 if(respuestas.cell_value(row,0)==lista[0]['indice']):
-                    jsonList.append({"tema":respuestas.cell_value(row,1),"categoria":respuestas.cell_value(row,2),"link":respuestas.cell_value(row,4)})
+                    jsonList.append({"tema":respuestas.cell_value(row,1),"categoria":respuestas.cell_value(row,2),"subcategoria":respuestas.cell_value(row,3),"link":respuestas.cell_value(row,4)})
 
             flash(jsonList)
 
 
 
-        return render_template('hello.html', form=form)
+        return render_template('hello.html', form=form,dispositivo=dispositivo)
 
 if __name__ == '__main__':
     app.run(host=os.getenv('IP', '0.0.0.0'), 

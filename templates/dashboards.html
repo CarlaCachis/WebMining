@@ -1,6 +1,13 @@
-<html>
-<head>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="images/favicon.ico" type="image/ico" />
+  
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153732333-1"></script>
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
 	<script>
@@ -19,27 +26,312 @@
 
     gtag('config', 'UA-153732333-1');
   </script>
-	<title>Dashboards</title>
-</head>
-<body>
-  <h1>Dashboards</h1>
 
-  <div class="col-md-12">
+    <title>Dashboards</title>
 
-    <div class="col-md-6">
-      <canvas id="pie"></canvas>
+    <!-- Bootstrap -->
+    <link href="{{ url_for('static', filename='vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{{ url_for('static', filename='vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{{ url_for('static', filename='vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="{{ url_for('static', filename='vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
+	
+    <!-- bootstrap-progressbar -->
+    <link href="{{ url_for('static', filename='vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') }}" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="{{ url_for('static', filename='vendors/jqvmap/dist/jqvmap.min.css') }}" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="{{ url_for('static', filename='vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="{{ url_for('static', filename='build/css/custom.min.css') }}" rel="stylesheet">
+
+    <style>
+        html, body, #container {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        }
+      </style> 
+    
+
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="index.html" class="site_title"><span>Minería Web</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+           
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                <div class="menu_section">                
+                  <ul class="nav side-menu">
+                    <li><a href="{{url_for('hello')}}"><i class="fa fa-search"></i> Búsqueda </a>
+                      
+                    </li>
+                    <li><a href="{{url_for('dashboard')}}"><i class="fa fa-dashboard"></i> Resumen </a>
+                      
+                    </li>                  
+                  </ul>
+                </div>            
+              </div>
+              <!-- /sidebar menu -->
+  
+  
+         
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+              <nav class="nav navbar-nav">
+              <ul class=" navbar-right">
+                <li class="nav-item dropdown open" style="padding-left: 15px;">
+                  <a href="javascript:;" class="user-profile" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                      <img src="https://icon-library.net/images/profile-picture-icon/profile-picture-icon-24.jpg" alt="">{{dispositivo}}
+                  </a>
+                  
+                </li>
+
+               
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <!-- top tiles -->
+<!--           <div class="row" style="display: inline-block;" >
+          <div class="tile_count">
+            <div class="col-md-2 col-sm-4  tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> KPI 1</span>
+              <div class="count">Valor 1</div>
+            </div>
+
+            <div class="col-md-2 col-sm-4  tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> KPI 2</span>
+              <div class="count">Valor 2</div>
+            </div>
+
+            <div class="col-md-2 col-sm-4  tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> KPI 3</span>
+              <div class="count">Valor 3</div>
+            </div>
+
+            <div class="col-md-2 col-sm-4  tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> KPI 4</span>
+              <div class="count">Valor 4</div>
+            </div>
+            
+            <div class="col-md-2 col-sm-4  tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> KPI 5</span>
+              <div class="count">Valor 5</div>
+            </div>
+            <div class="col-md-2 col-sm-4  tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> KPI 6</span>
+              <div class="count">Valor 6</div>
+            </div>
+          </div>
+        </div> -->
+          <!-- /top tiles -->
+
+          <div class="row">
+
+
+            <div class="col-md-6 col-sm-12 ">
+              <div class="x_panel tile overflow_hidden" style="height: 420px;">
+                <div class="x_title">
+                  <h2>Número de temas por subcategoría</h2>
+                  <ul class="nav navbar-right panel_toolbox" style="min-width: 0px !important;">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <form class="form-inline" method="POST" action="{{ url_for('dashboard') }}">
+                    <div class="form-group row">
+                        <label class="control-label col-md-3 col-sm-3 ">Categoría</label>
+                        <div class="col-md-9 col-sm-9">
+                          <select name="categorySelected" class="form-control" onchange="this.form.submit()">
+                            {% for category in categories %}
+                              {% if category==categoryFilter %}
+                                <option value="{{category}}" selected>{{category}}</option>
+                              {% else %}
+                                <option value="{{category}}">{{category}}</option>
+                              {% endif %}
+                            {% endfor %}
+
+                          </select>
+                        </div>
+                      </div>
+                    </form>
+                        <canvas id="pie"></canvas>
+                     
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 ">
+                <div class="x_panel tile overflow_hidden" style="height: 420px;">
+                  <div class="x_title">
+                    <h2>Número de temas por categoría</h2>
+                    <ul class="nav navbar-right panel_toolbox" style="min-width: 0px !important;">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                     
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                  
+                          <canvas id="bar"></canvas>
+                        
+                  </div>
+                </div>
+              </div>          
+
+          </div>
+
+
+          <div class="row">
+
+              <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Top 10: Palabras más buscadas</h2>
+                    <ul class="nav navbar-right panel_toolbox" style="min-width: 0px !important;">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        
+                      </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                      <div id="container"></div>
+                  </div>
+                
+
+            </div>
+            
+          </div>
+        </div>
+
+          <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Últimas Búsquedas</h2>
+                  <ul class="nav navbar-right panel_toolbox" style="min-width: 0px !important;">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      
+                    </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div class="dashboard-widget-content">
+
+                    <ul class="list-unstyled timeline widget">
+                        {% for question in lastQuestions %}
+                      <li>
+                        <div class="block">
+                          <div class="block_content">
+                            <h2 class="title">
+                                <a>{{question['tema']}}</a>
+                            </h2>
+                            <div class="byline">
+                              <span>{{question['fecha']}}</span> por <a>{{question['usuario']}}</a>
+                            </div>                           
+                          </div>
+                        </div>
+                      </li>
+                      {% endfor %}
+                      
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          </div>
+        </div>
+        <!-- /page content -->
+      </div>
     </div>
-    <div class="col-md-6">
-      <canvas id="bar"></canvas>
-    </div>
-  </div>
 
+    <div id="embed-api-auth-container"></div>
+    <div id="chart-container"></div>
+    <div id="view-selector-container"></div>
 
-  <div id="embed-api-auth-container"></div>
-  <div id="chart-container"></div>
-  <div id="view-selector-container"></div>
-</body>
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='vendors/jquery/dist/jquery.min.js') }}"></script>
+    <!-- Bootstrap -->
+    <script src="{{ url_for('static', filename='vendors/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- FastClick -->
+    <script src="{{ url_for('static', filename='vendors/fastclick/lib/fastclick.js') }}"></script>
+    <!-- NProgress -->
+    <script src="{{ url_for('static', filename='vendors/nprogress/nprogress.js') }}"></script>
+    <!-- Chart.js -->
+    <script src="{{ url_for('static', filename='vendors/Chart.js/dist/Chart.min.js') }}"></script>
+    <!-- gauge.js -->
+    <script src="{{ url_for('static', filename='vendors/gauge.js/dist/gauge.min.js') }}"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="{{ url_for('static', filename='vendors/bootstrap-progressbar/bootstrap-progressbar.min.js') }}"></script>
+    <!-- iCheck -->
+    <script src="{{ url_for('static', filename='vendors/iCheck/icheck.min.js') }}"></script>
+    <!-- Skycons -->
+    <script src="{{ url_for('static', filename='vendors/skycons/skycons.js') }}"></script>
+    <!-- Flot -->
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.pie.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.time.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.stack.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.resize.js') }}"></script>
+    <!-- Flot plugins -->
+    <script src="{{ url_for('static', filename='vendors/flot.orderbars/js/jquery.flot.orderBars.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/flot-spline/js/jquery.flot.spline.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/flot.curvedlines/curvedLines.js') }}"></script>
+    <!-- DateJS -->
+    <script src="{{ url_for('static', filename='vendors/DateJS/build/date.js') }}"></script>
+    <!-- JQVMap -->
+    <script src="{{ url_for('static', filename='vendors/jqvmap/dist/jquery.vmap.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{{ url_for('static', filename='vendors/moment/min/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{{ url_for('static', filename='build/js/custom.min.js') }}"></script>
+  
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
+  </body>
 </html>
+
+
 
 <script>
 	function clickSubmit(event) {
@@ -102,6 +394,21 @@ viewSelector.on('change', function(ids) {
 });
 </script>
 
+
+<script>
+    anychart.onDocumentReady(function() {
+      var data = {{ words |tojson}};
+ 
+
+ // create a tag (word) cloud chart
+  var chart = anychart.tagCloud(data);
+  
+  // display the word cloud chart
+  chart.container("container");
+  chart.draw();
+});
+</script>
+
 <script>
 
   var dashboardData = {{ test |tojson}};
@@ -127,10 +434,11 @@ viewSelector.on('change', function(ids) {
                   'rgba(255, 206, 86, 1)',
                   'rgba(75, 192, 192, 1)',
                   'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)'
+                  'rgba(150, 255, 64, 1)',
+                  'rgba(200, 15, 100, 1)',
+                  'rgba(100, 100, 255, 1)',
+                  'rgba(0, 180, 0, 1)'
+
               ]
           }]
       },
@@ -149,15 +457,15 @@ viewSelector.on('change', function(ids) {
               label: '# de temas por Categoría',
               data: barDataGraph.map(function(elem){return elem.count;}),
               backgroundColor: [
-                  'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)',
-                  'rgba(75, 192, 192, 1)',
+                  'rgba(0, 180, 0, 1)',
+                  'rgba(100, 100, 255, 1)',
+                  'rgba(200, 15, 100, 1)',
+                  'rgba(150, 255, 64, 1)',
                   'rgba(153, 102, 255, 1)',
-                  'rgba(255, 159, 64, 1)',
-                  'rgba(255, 99, 132, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(255, 206, 86, 1)',
                   'rgba(54, 162, 235, 1)',
-                  'rgba(255, 206, 86, 1)'
+                  'rgba(255, 99, 132, 1)'
               ]
           }]
       },
@@ -168,7 +476,10 @@ viewSelector.on('change', function(ids) {
                       beginAtZero: true
                   }
               }]
-          }
+          },
+          legend: {
+            display: false
+        }
       }
   });
   </script>

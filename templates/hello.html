@@ -1,6 +1,13 @@
-<html>
-<head>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="images/favicon.ico" type="image/ico" />
+  
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153732333-1"></script>
 	<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
 	<script>
@@ -10,68 +17,256 @@
 		  js.src='https://apis.google.com/js/platform.js';
 		  fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
 		}(window,document,'script'));
-		</script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-  gtag('config', 'UA-153732333-1');
-</script>
+    gtag('config', 'UA-153732333-1');
+  </script>
+
 	<title>¿Qué es lo que estás pensando?</title>
-</head>
-<body>
 
-	<div class="row p-5">
-		
-		<div class="col-md-6">
-				<h2>¿Qué es lo que estás pensando?</h2>
-		<form action="" method="post">
-			<!-- <textarea rows="6" cols="80" placeholder="Escribe tu texto aquí"></textarea> -->
-			<p>Ingresa una breve descripción de lo que estas pensando para encontrar comentarios de personas que piensan como tú</p>
-			<div style="padding-bottom: 15px;">
-				{{form.entrada}}
-			</div>
+    <!-- Bootstrap -->
+    <link href="{{ url_for('static', filename='vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{{ url_for('static', filename='vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="{{ url_for('static', filename='vendors/nprogress/nprogress.css') }}" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="{{ url_for('static', filename='vendors/iCheck/skins/flat/green.css') }}" rel="stylesheet">
+	
+    <!-- bootstrap-progressbar -->
+    <link href="{{ url_for('static', filename='vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') }}" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="{{ url_for('static', filename='vendors/jqvmap/dist/jqvmap.min.css') }}" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="{{ url_for('static', filename='vendors/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="{{ url_for('static', filename='build/css/custom.min.css') }}" rel="stylesheet">
+    
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="index.html" class="site_title"><span>Minería Web</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+           
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">                
+                <ul class="nav side-menu">
+                  <li><a href="{{url_for('hello')}}"><i class="fa fa-search"></i> Búsqueda </a>
+                    
+                  </li>
+                  <li><a href="{{url_for('dashboard')}}"><i class="fa fa-dashboard"></i> Resumen </a>
+                    
+                  </li>                  
+                </ul>
+              </div>            
+            </div>
+            <!-- /sidebar menu -->
+
+         
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+              <nav class="nav navbar-nav">
+              <ul class=" navbar-right">
+                  <li class="nav-item dropdown open" style="padding-left: 15px;">
+                      <a href="javascript:;" class="user-profile" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                          <img src="https://icon-library.net/images/profile-picture-icon/profile-picture-icon-24.jpg" alt="">{{dispositivo}}
+                      </a>
+                      
+                    </li>
+    
+               
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
 			<div class="row">
-			<div class="col-md-4">
-			<div class="input submit">
-				<input type="submit" value="Ejecutar" class="btn btn-primary" onclick="clickSubmit()">
+
+				<div class="col-md-12 col-sm-12 " >
+					<div class="x_panel">
+						<div class="x_title">
+							<h2>¿Qué es lo que estás pensando?</h2>
+							<ul class="nav navbar-right panel_toolbox" style="min-width: 0px !important;">
+								<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+								</li>
+								
+							</ul>
+							<div class="clearfix"></div>
+						</div>
+						<div class="x_content">
+							
+							<form method="post" action="">
+								
+								
+								<div class="col-md-12 col-sm-12 ">
+										<input type="text" name="entrada" required="required" class="form-control" placeholder="Ingresa una breve descripción de lo que estas pensando" autocomplete="off">
+									  </div>
+								<div class="row" style="padding-top: 25px;">
+									<div class="col-md-12">
+										<div class="input submit">
+											<input type="submit" value="Buscar comentarios" class="btn btn-primary" onclick="clickSubmit()">
+										</div>
+									</div>
+									
+								</div>
+								
+								
+							</form>
+						</div>
+					</div>
+				</div>
 			</div>
-			</div>
 
-		</div>
-		</form>
-			
-		</div>
-		<div class="col-md-offset-1 col-md-5">
+			{% with messages = get_flashed_messages(with_categories=true) %}
+			{% if messages %}
+				
 
-			
-				{% with messages = get_flashed_messages(with_categories=true) %}
-				{% if messages %}
-				<h4>Resultados:</h4>
-				<ol>
-					{% for message in messages %}
-					{% for item in message[1] %}
-					 <li>{{item['categoria']}}: <br> 
-					 	<a  target="_blank" href="{{item['link']}}" >{{item['tema']}}</a>
-					 </li>
-					 <br>
-					{% endfor %}
-					{% endfor %}
-				</ol>
-				{% endif %}
-				{% endwith %}
+				<div class="row">
 
+					<div class="col-md-12 col-sm-12 ">
+						<div class="x_panel">
+							  <div class="x_title">
+								  <h2>Resultados</h2>
+								  <ul class="nav navbar-right panel_toolbox" style="min-width: 0px !important;">
+									  <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+									  </li>
+									  
+									</ul>
+									<div class="clearfix"></div>
+								</div>
 
+								<div class="x_content">
+					
 
+												
+											
 
-		  </div>
-	  </div>
-	  <div id="embed-api-auth-container"></div>
-<div id="chart-container"></div>
-<div id="view-selector-container"></div>
-</body>
+										<div class="table-responsive">
+										  <table class="table table-striped jambo_table bulk_action">
+											<thead>
+											  <tr class="headings">
+												
+												<th class="column-title">Categoría </th>
+												<th class="column-title">Subcategoría </th>
+												<th class="column-title">Tema </th>
+												<th class="column-title"></th>												
+											  </tr>
+											</thead>
+					
+											<tbody>
+											
+											  {% for message in messages %}
+												{% for item in message[1] %}
+										
+												<tr class="even pointer">
+												
+														<td class="">{{item['categoria']}}</td>
+														<td class="">{{item['subcategoria']}}</td>
+														<td class="">{{item['tema']}} </td>
+														<td class=""><a target="_blank" href="{{item['link']}}" ><i class="fa fa-paper-plane fa-2x"></i></a></td>							
+													  </tr>
+												{% endfor %}
+												{% endfor %}
+											  
+											 
+											</tbody>
+										  </table>
+										</div>
+
+										
+												
+											
+									  </div>
+							</div>
+						</div>
+					</div>
+									{% endif %}
+									{% endwith %}
+
+							
+								
+				
+        </div>
+        <!-- /page content -->
+      </div>
+    </div>
+
+    <div id="embed-api-auth-container"></div>
+    <div id="chart-container"></div>
+    <div id="view-selector-container"></div>
+
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='vendors/jquery/dist/jquery.min.js') }}"></script>
+    <!-- Bootstrap -->
+    <script src="{{ url_for('static', filename='vendors/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <!-- FastClick -->
+    <script src="{{ url_for('static', filename='vendors/fastclick/lib/fastclick.js') }}"></script>
+    <!-- NProgress -->
+    <script src="{{ url_for('static', filename='vendors/nprogress/nprogress.js') }}"></script>
+    <!-- Chart.js -->
+    <script src="{{ url_for('static', filename='vendors/Chart.js/dist/Chart.min.js') }}"></script>
+    <!-- gauge.js -->
+    <script src="{{ url_for('static', filename='vendors/gauge.js/dist/gauge.min.js') }}"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="{{ url_for('static', filename='vendors/bootstrap-progressbar/bootstrap-progressbar.min.js') }}"></script>
+    <!-- iCheck -->
+    <script src="{{ url_for('static', filename='vendors/iCheck/icheck.min.js') }}"></script>
+    <!-- Skycons -->
+    <script src="{{ url_for('static', filename='vendors/skycons/skycons.js') }}"></script>
+    <!-- Flot -->
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.pie.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.time.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.stack.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/Flot/jquery.flot.resize.js') }}"></script>
+    <!-- Flot plugins -->
+    <script src="{{ url_for('static', filename='vendors/flot.orderbars/js/jquery.flot.orderBars.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/flot-spline/js/jquery.flot.spline.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/flot.curvedlines/curvedLines.js') }}"></script>
+    <!-- DateJS -->
+    <script src="{{ url_for('static', filename='vendors/DateJS/build/date.js') }}"></script>
+    <!-- JQVMap -->
+    <script src="{{ url_for('static', filename='vendors/jqvmap/dist/jquery.vmap.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/jqvmap/dist/maps/jquery.vmap.world.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/jqvmap/examples/js/jquery.vmap.sampledata.js') }}"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{{ url_for('static', filename='vendors/moment/min/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendors/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+
+    <!-- Custom Theme Scripts -->
+    <script src="{{ url_for('static', filename='build/js/custom.min.js') }}"></script>
+	
+  </body>
 </html>
+
 
 <script>
 	function clickSubmit(event) {

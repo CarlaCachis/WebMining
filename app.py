@@ -84,7 +84,7 @@ class ReusableForm(Form):
             splitString=elem.split(";")
             for word in splitString[0].split():
                 if word not in stopwords.words('spanish'):
-                    wordsList.append(word)
+                    wordsList.append(word.lower())
         
         counterWordsList = Counter((elem) for elem in wordsList)
         words = [({'x' : x, 'value': k}) \

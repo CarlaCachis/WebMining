@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+      })(window,document,'script','dataLayer','GTM-KG36H5Q');</script>
+      <!-- End Google Tag Manager -->
+
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="images/favicon.ico" type="image/ico" />
+  
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-153732333-1"></script>
+	<link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+	<script>
+		(function(w,d,s,g,js,fs){
+		  g=w.gapi||(w.gapi={});g.analytics={q:[],ready:function(f){this.q.push(f);}};
+		  js=d.createElement(s);fs=d.getElementsByTagName(s)[0];
+		  js.src='https://apis.google.com/js/platform.js';
+		  fs.parentNode.insertBefore(js,fs);js.onload=function(){g.load('analytics');};
+		}(window,document,'script'));
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-153732333-1');
+  </script>
+
+    <title>Resumen</title>
+
+    <!-- Bootstrap -->
+    <link href="{{ url_for('static', filename='vendors/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="{{ url_for('static', filename='vendors/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="{{ url_for('static', filename='build/css/custom.min.css') }}" rel="stylesheet">
+
+    <style>
+        html, body, #container {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        }
+      </style> 
+    
+
+  </head>
+
+  <body class="nav-md">
+    <!-- Google Tag Manager (noscript) -->
+	<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KG36H5Q"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="index.html" class="site_title"><span>Minería Web</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+           
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                <div class="menu_section">                
+                  <ul class="nav side-menu">
+                    <li><a href="{{url_for('hello')}}" class="searchLink"><i class="fa fa-search"></i> Búsqueda </a>
+                      
+                    </li>
+                    <li><a href="{{url_for('dashboard')}}" class="summaryLink"><i class="fa fa-dashboard"></i> Resumen </a>
+                      
+                    </li>                  
+                  </ul>
+                </div>            
+              </div>
+              <!-- /sidebar menu -->
+  
+  
+         
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+              <nav class="nav navbar-nav">
+              <ul class=" navbar-right">
+                <li class="nav-item dropdown open" style="padding-left: 15px;">
+                  <a href="javascript:;" class="user-profile" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
+                      <img src="https://icon-library.net/images/profile-picture-icon/profile-picture-icon-24.jpg" alt="">{{dispositivo}}
+                  </a>
+                  
+                </li>
+
+               
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+          <!-- top tiles -->
+<!--           <div class="row" style="display: inline-block;" >
+          <div class="tile_count">
+            <div class="col-md-2 col-sm-4  tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> KPI 1</span>
+              <div class="count">Valor 1</div>
+            </div>
+
+            <div class="col-md-2 col-sm-4  tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> KPI 2</span>
+              <div class="count">Valor 2</div>
+            </div>
+
+            <div class="col-md-2 col-sm-4  tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> KPI 3</span>
+              <div class="count">Valor 3</div>
+            </div>
+
+            <div class="col-md-2 col-sm-4  tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> KPI 4</span>
+              <div class="count">Valor 4</div>
+            </div>
+            
+            <div class="col-md-2 col-sm-4  tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> KPI 5</span>
+              <div class="count">Valor 5</div>
+            </div>
+            <div class="col-md-2 col-sm-4  tile_stats_count">
+              <span class="count_top"><i class="fa fa-user"></i> KPI 6</span>
+              <div class="count">Valor 6</div>
+            </div>
+          </div>
+        </div> -->
+          <!-- /top tiles -->
+
+          <div class="row">
+
+
+            <div class="col-md-6 col-sm-12 ">
+              <div class="x_panel tile overflow_hidden" style="height: 420px;">
+                <div class="x_title">
+                  <h2>Número de temas por subcategoría</h2>
+                  <ul class="nav navbar-right panel_toolbox" style="min-width: 0px !important;">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    
+                  </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <form class="form-inline" method="POST" action="{{ url_for('dashboard') }}">
+                    <div class="form-group row">
+                        <label class="control-label col-md-3 col-sm-3 ">Categoría</label>
+                        <div class="col-md-9 col-sm-9">
+                          <select name="categorySelected" class="form-control" onchange="this.form.submit()">
+                            {% for category in categories %}
+                              {% if category==categoryFilter %}
+                                <option value="{{category}}" selected>{{category}}</option>
+                              {% else %}
+                                <option value="{{category}}">{{category}}</option>
+                              {% endif %}
+                            {% endfor %}
+
+                          </select>
+                        </div>
+                      </div>
+                    </form>
+                        <canvas id="pie"></canvas>
+                     
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-sm-12 ">
+                <div class="x_panel tile overflow_hidden" style="height: 420px;">
+                  <div class="x_title">
+                    <h2>Número de temas por categoría</h2>
+                    <ul class="nav navbar-right panel_toolbox" style="min-width: 0px !important;">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                     
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                  
+                          <canvas id="bar"></canvas>
+                        
+                  </div>
+                </div>
+              </div>          
+
+          </div>
+
+
+          <div class="row">
+
+              <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Top 10: Palabras más buscadas</h2>
+                    <ul class="nav navbar-right panel_toolbox" style="min-width: 0px !important;">
+                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                        </li>
+                        
+                      </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+                      <div id="container"></div>
+                  </div>
+                
+
+            </div>
+            
+          </div>
+        </div>
+
+          <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+              <div class="x_panel">
+                <div class="x_title">
+                  <h2>Últimas Búsquedas</h2>
+                  <ul class="nav navbar-right panel_toolbox" style="min-width: 0px !important;">
+                      <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                      </li>
+                      
+                    </ul>
+                  <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                  <div class="dashboard-widget-content">
+
+                    <ul class="list-unstyled timeline widget">
+                        {% for question in lastQuestions %}
+                      <li>
+                        <div class="block">
+                          <div class="block_content">
+                            <h2 class="title">
+                                <a>{{question['tema']}}</a>
+                            </h2>
+                            <div class="byline">
+                              <span>{{question['fecha']}}</span> por <a>{{question['usuario']}}</a>
+                            </div>                           
+                          </div>
+                        </div>
+                      </li>
+                      {% endfor %}
+                      
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          </div>
+        </div>
+        <!-- /page content -->
+      </div>
+    </div>
+
+    <div id="embed-api-auth-container"></div>
+    <div id="chart-container"></div>
+    <div id="view-selector-container"></div>
+
+    <!-- jQuery -->
+    <script src="{{ url_for('static', filename='vendors/jquery/dist/jquery.min.js') }}"></script>
+    <!-- Bootstrap -->
+    <script src="{{ url_for('static', filename='vendors/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    
+    <!-- Chart.js -->
+    <script src="{{ url_for('static', filename='vendors/Chart.js/dist/Chart.min.js') }}"></script>
+    
+    <!-- DateJS -->
+    <script src="{{ url_for('static', filename='vendors/DateJS/build/date.js') }}"></script>
+   
+    <!-- Custom Theme Scripts -->
+    <script src="{{ url_for('static', filename='build/js/custom.min.js') }}"></script>
+  
+    <script src="https://cdn.anychart.com/releases/v8/js/anychart-base.min.js"></script>
+  <script src="https://cdn.anychart.com/releases/v8/js/anychart-tag-cloud.min.js"></script>
+  </body>
+</html>
+
+
+
+<script>
+	function clickSubmit(event) {
+		ga('send', 'event', 'click', event.target.href);
+	}
+	gapi.analytics.ready(function() {
+
+/**
+ * Authorize the user immediately if the user has already granted access.
+ * If no access has been created, render an authorize button inside the
+ * element with the ID "embed-api-auth-container".
+ */
+gapi.analytics.auth.authorize({
+  container: 'embed-api-auth-container',
+  clientid: '110459703617280889290'
+});
+
+
+/**
+ * Create a new ViewSelector instance to be rendered inside of an
+ * element with the id "view-selector-container".
+ */
+var viewSelector = new gapi.analytics.ViewSelector({
+  container: 'view-selector-container'
+});
+
+// Render the view selector to the page.
+viewSelector.execute();
+
+
+/**
+ * Create a new DataChart instance with the given query parameters
+ * and Google chart options. It will be rendered inside an element
+ * with the id "chart-container".
+ */
+var dataChart = new gapi.analytics.googleCharts.DataChart({
+  query: {
+	metrics: 'ga:sessions',
+	dimensions: 'ga:date',
+	'start-date': '30daysAgo',
+	'end-date': 'yesterday'
+  },
+  chart: {
+	container: 'chart-container',
+	type: 'LINE',
+	options: {
+	  width: '100%'
+	}
+  }
+});
+
+
+/**
+ * Render the dataChart on the page whenever a new view is selected.
+ */
+viewSelector.on('change', function(ids) {
+  dataChart.set({query: {ids: ids}}).execute();
+});
+
+});
+</script>
+
+
+<script>
+    anychart.onDocumentReady(function() {
+      var data = {{ words |tojson}};
+ 
+
+ // create a tag (word) cloud chart
+  var chart = anychart.tagCloud(data);
+  
+  // display the word cloud chart
+  chart.container("container");
+  chart.draw();
+});
+</script>
+
+<script>
+
+  var dashboardData = {{ test |tojson}};
+  var categories = {{ categories |tojson}};
+  var pieDataGraph = {{ pieData |tojson}};
+  var barDataGraph = {{ barData |tojson}};
+  
+  
+
+  console.log({pieDataGraph,barDataGraph});
+  var ctxPie = document.getElementById('pie').getContext('2d');
+  var ctxBar = document.getElementById('bar').getContext('2d');
+  var pieGraph = new Chart(ctxPie, {
+      type: 'pie',
+      data: {
+          labels: pieDataGraph.map(function(elem){return elem.subcategoria;}),
+          datasets: [{
+              label: '# de Subcategorías por Categoría: [Nombre de Categoría]',
+              data: pieDataGraph.map(function(elem){return elem.count;}),
+              backgroundColor: [
+                  'rgba(255, 99, 132, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(150, 255, 64, 1)',
+                  'rgba(200, 15, 100, 1)',
+                  'rgba(100, 100, 255, 1)',
+                  'rgba(0, 180, 0, 1)'
+
+              ]
+          }]
+      },
+      options: {
+        legend: {
+						position: 'bottom',
+					},
+      }
+  });
+
+  var barGraph = new Chart(ctxBar, {
+      type: 'bar',
+      data: {
+          labels: barDataGraph.map(function(elem){return elem.categoria;}),
+          datasets: [{
+              label: '# de temas por Categoría',
+              data: barDataGraph.map(function(elem){return elem.count;}),
+              backgroundColor: [
+                  'rgba(0, 180, 0, 1)',
+                  'rgba(100, 100, 255, 1)',
+                  'rgba(200, 15, 100, 1)',
+                  'rgba(150, 255, 64, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 99, 132, 1)'
+              ]
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero: true
+                  }
+              }]
+          },
+          legend: {
+            display: false
+        }
+      }
+  });
+  </script>

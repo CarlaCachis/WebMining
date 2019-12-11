@@ -4,3 +4,6 @@
 > set FLASK_ENV=development
 > set FLASK_APP=app.py
 > flask run
+> ubuntu@ec2-18-234-89-45.compute-1.amazonaws.com
+> . venv/bin/activate
+>
